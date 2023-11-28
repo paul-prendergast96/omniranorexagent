@@ -1,12 +1,16 @@
 const express = require('express');
 const path = require('path');
+const chalk = require('chalk');
+const debug = require('debug')('app');
+const morgan = require('morgan');
 //const ejs = require('ejs');
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4001;
 const app = express();
 
 //middleware
 app.use(express.static(path.join(__dirname, '/src/')));
+app.use(morgan('tiny'));
 
 
 app.set('views', path.join(__dirname, 'src', 'views'));
@@ -18,5 +22,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Listening on port: ${PORT}`);
+    debug(`Listening on port: ${chalk.green(PORT)}`);
 });
